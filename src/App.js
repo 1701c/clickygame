@@ -9,35 +9,57 @@ class App extends Component {
   state = {
     cards,
     score: 0,
-    highscore: 0
+    highscore: 0,
+    message: 'Click an Image to Begin'
   };
 
-  gameOver = () => {
-    if (this.state.score > this.state.highscore) {
-      this.setState({ highscore: this.state.score }, function () {
-        console.log(this.state.highscore);
-      });
-    }
-    this.state.cards.forEach(card => {
-      card.count = 0;
-    });
-    alert(`Game Over :( \nscore: ${this.state.score}`);
+  // newGame = () => {
+  //   this.setState({ score: 0 });
+  //   this.state.cards.forEach(card => { card.count = 0; })
+  // }
+
+  // cardClicked = id => {
+  //   this.state.cards.find((cardToMatch, i) => {
+  //     if (cardToMatch.id === id) {
+  //       if (cards[i].count === 0) {
+  //         cards[i].count = cards[i].count + 1;
+  //         this.setState({ score: this.state.score + 1, message: "Correct!" }, function () {
+  //           if (this.state.score > this.state.highscore) {
+  //             this.setState({ highscore: this.state.score });
+  //             if (this.state.score === 12) this.setState({ message: "You Win!"});
+  //           };
+  //         });
+  //         this.state.cards.sort(() => Math.random() - .5)
+  //       } else {
+  //         this.setState({ message: "You Lose!" });
+  //         this.newGame();
+  //       }
+  //     } return null;
+  //   });
+  // }
+
+  newGame = () => {
     this.setState({ score: 0 });
-    return true;
+    this.state.cards.forEach(card => { card.count = 0; })
   }
 
-  clickCount = id => {
+  cardClicked = id => {
     this.state.cards.find((cardToMatch, i) => {
       if (cardToMatch.id === id) {
         if (cards[i].count === 0) {
           cards[i].count = cards[i].count + 1;
-          this.setState({ score: this.state.score + 1 }, function () {
-            console.log(this.state.score);
+          this.setState({ score: this.state.score + 1, message: "Correct!" }, function () {
+            if (this.state.score > this.state.highscore) {
+              this.setState({ highscore: this.state.score });
+              if (this.state.score === 12) this.setState({ message: "You Win!" });
+            };
           });
-          this.state.cards.sort(() => Math.random() - .5 )
+          this.state.cards.sort(() => Math.random() - .5)
           return true;
         } else {
-          this.gameOver();
+          this.setState({ message: "You Lose!" });
+          this.newGame();
+          return false;
         }
       } return null;
     });
@@ -46,11 +68,17 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
-        <Header score={this.state.score} highscore={this.state.highscore}>Clicky Game</Header>
+        <Header
+          score={this.state.score}
+          highscore={this.state.highscore}
+          message={this.state.message}
+        >
+          Clicky Game
+        </Header>
         <div className="container">
           {this.state.cards.map(card => (
             <Card
-              clickCount={this.clickCount}
+              cardClicked={this.cardClicked}
               id={card.id}
               key={card.id}
               image={card.image}

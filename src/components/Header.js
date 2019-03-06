@@ -5,7 +5,7 @@ const Header = props => (
   <tbody>
   <tr>
       <td style={tdStyle}>{props.children}</td>
-      <td style={tdStyle}>Click Item to Begin</td>
+      <td style={tdStyle}>{props.message}</td>
       <td style={tdStyle}>Score: {props.score} Highscore: {props.highscore}</td>
       </tr></tbody>
   </table>

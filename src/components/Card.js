@@ -1,7 +1,7 @@
 import React from "react";
 
 const Card = props => (
-  <div style={cardStyle} onClick={() => props.clickCount(props.id)}>
+  <div style={cardStyle} onClick={() => props.cardClicked(props.id)}>
     <div style={imgContainerStyle}>
       <img style={imgStyle} alt={props.name} src={props.image} />
     </div>
