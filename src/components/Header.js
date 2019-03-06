@@ -13,9 +13,9 @@ const Header = props => (
 
 const tableStyle = {
   width: "100%",
-  fontSize: "2rem",
-  color: '#2A77AE',
-  backgroundColor: 'white',
+  fontSize: "3rem",
+  // color: '#CC0000',
+  backgroundColor: '#CC0000',
   marginBottom: '10px',
   display: 'inlineBlock'
 }
